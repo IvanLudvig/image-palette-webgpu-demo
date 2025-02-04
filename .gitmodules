@@ -1,0 +1,3 @@
+[submodule "image-palette-webgpu"]
+	path = image-palette-webgpu
+	url = https://github.com/IvanLudvig/image-palette-webgpu
