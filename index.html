@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
   <head>
     <meta charset='UTF-8'>
@@ -10,15 +8,33 @@
   <body>
     <h1>Image dominant colors extraction using WebGPU API with various algorithms</h1>
 
-    <h2>Demos</h2>
-    <ul>
-      <li><a href='./wu/index.html'>Wu algorithm</a></li>
-      <li><a href='./kmeans/index.html'>K-Means algorithm</a></li>
-      <li><a href='./celebi/index.html'>Celebi (Wu + K-Means) algorithm</a></li>
-    </ul>
+    <div class='container'>
+      <div class='upload-container'>
+        <label for='image-upload'>Select or drag'n'drop an image file:</label>
+        <input type='file' id='image-upload' accept='image/*'>
+      </div>
+
+      <div class='algorithm-select-container'>
+        <label for='algorithm-select'>Select algorithm:</label>
+        <select id='algorithm-select'>
+          <option value='wu'>Wu</option>
+          <option value='kmeans'>K-Means</option>
+          <option value='celebi'>Celebi (Wu + K-Means)</option>
+        </select>
+      </div>
+
+      <div class='colors-num-container'>
+        <label for='k-input'>Select the number of colors:</label>
+        <input type='number' id='k-input' min='1' max='16' value='4'>
+      </div>
+
+      <img src='./image.jpg' alt='Image' style='max-width: 100%; max-height: 256px;' />
+      <div id='color-palette' class='color-palette'></div>
+    </div>
 
     <h2>Source Code</h2>
     <p><a href='https://github.com/IvanLudvig/image-palette-webgpu' target="_blank">GitHub</a></p>
 
+    <script type='module' src='./index.js'></script>
   </body>
 </html>
