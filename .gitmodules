@@ -1,4 +1,4 @@
-[submodule "image-palette-webgpu"]
+[submodule "node_modules/image-palette-webgpu"]
 	path = node_modules/image-palette-webgpu
 	url = https://github.com/IvanLudvig/image-palette-webgpu
 	branch = pr/2
