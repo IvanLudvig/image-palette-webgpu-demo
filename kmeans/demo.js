@@ -1,4 +1,4 @@
-import { extractDominantColorsKMeans } from '../node_modules/image-palette-webgpu/kmeans/index.js';
+import { extractDominantColors } from '../node_modules/image-palette-webgpu/index.js';
 import { renderColors, setupImageUploadListener } from '../demo_utils.js';
 
 const image = document.querySelector('img');
@@ -15,7 +15,7 @@ async function run() {
         return;
     }
 
-    const colors = await extractDominantColorsKMeans(image, K);
+    const colors = await extractDominantColors(image, K, 'kmeans');
     renderColors(palette, colors);
 }
 
