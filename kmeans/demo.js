@@ -1,4 +1,4 @@
-import { extractDominantColorsWu } from '../../image-palette-webgpu/src/wu/index.js';
+import { extractDominantColorsKMeans } from '../node_modules/image-palette-webgpu/kmeans/index.js';
 import { renderColors, setupImageUploadListener } from '../demo_utils.js';
 
 const image = document.querySelector('img');
@@ -14,7 +14,8 @@ async function run() {
         alert('Invalid number of colors');
         return;
     }
-    const colors = await extractDominantColorsWu(image, K);
+
+    const colors = await extractDominantColorsKMeans(image, K);
     renderColors(palette, colors);
 }
 

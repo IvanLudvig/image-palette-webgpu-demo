@@ -1,4 +1,4 @@
-import { extractDominantColorsCelebi } from '../../image-palette-webgpu/src/celebi/index.js';
+import { extractDominantColorsCelebi } from '../node_modules/image-palette-webgpu/celebi/index.js';
 import { renderColors, setupImageUploadListener } from '../demo_utils.js';
 
 const image = document.querySelector('img');
