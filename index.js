@@ -1,4 +1,4 @@
-import { extractDominantColors } from './node_modules/image-palette-webgpu/index.js';
+import { extractDominantColors } from './image-palette-webgpu/index.js';
 import { renderColors, setupImageUploadListener } from './utils.js';
 
 const image = document.getElementById('image-preview');
