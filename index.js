@@ -1,7 +1,7 @@
 import { extractDominantColors } from './node_modules/image-palette-webgpu/index.js';
 import { renderColors, setupImageUploadListener } from './utils.js';
 
-const image = document.querySelector('img');
+const image = document.getElementById('image-preview');
 const imageUpload = document.getElementById('image-upload');
 const palette = document.getElementById('color-palette');
 const algorithmSelect = document.getElementById('algorithm-select');

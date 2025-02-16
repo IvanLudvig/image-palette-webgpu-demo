@@ -2,10 +2,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2 {
-    text-align: center;
-}
-
 p {
     text-align: center;
 }
@@ -19,6 +15,10 @@ p {
     max-width: 1024px;
     margin: 0 auto;
     padding: 16px;
+}
+
+.shield-container a {
+    text-decoration: none;
 }
 
 .upload-container {
