@@ -1,12 +1,14 @@
 import { extractDominantColors } from './image-palette-webgpu/index.js';
 
-const image = document.getElementById('image-preview');
 const imageUpload = document.getElementById('image-upload');
+const imagePreview = document.getElementById('image-preview');
 const palette = document.getElementById('color-palette');
 const algorithmSelect = document.getElementById('algorithm-select');
-const kInput = document.getElementById('k-input');
+const colorCountInput = document.getElementById('k-input');
 
-function renderColors(palette, colors) {
+let imageUrl = './image.jpg';
+
+const renderColors = (palette, colors) => {
     palette.innerHTML = '';
     colors.forEach(color => {
         const colorBox = document.createElement('div');
@@ -26,48 +28,42 @@ function renderColors(palette, colors) {
         colorBox.appendChild(colorLabel);
         palette.appendChild(colorBox);
 
-        colorBox.addEventListener('click', () => {
-            navigator.clipboard.writeText(color.toUpperCase()).then(() => {
+        colorBox.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(color.toUpperCase());
                 alert(`Color ${color.toUpperCase()} copied to clipboard`);
-            }).catch(err => {
+            } catch (err) {
                 console.error('Failed to copy color: ', err);
-            });
+            }
         });
     });
-}
+};
 
-function setupImageUploadListener(imageUpload, image) {
-    imageUpload.addEventListener('change', async (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            if (file.type.startsWith('image/')) {
-                const imageUrl = URL.createObjectURL(file);
-                image.src = imageUrl;
-                await new Promise(resolve => image.onload = resolve);
-                URL.revokeObjectURL(imageUrl);
-            } else {
-                alert('Not an image file');
-            }
-        }
-    });
-}
-
-async function run() {
+const run = async () => {
     palette.innerHTML = '';
 
-    const K = parseInt(kInput.value);
-    if (isNaN(K) || K < 1 || K > 16) {
+    const colorCount = parseInt(colorCountInput.value);
+    if (isNaN(colorCount) || colorCount < 1 || colorCount > 16) {
         alert('Invalid number of colors');
         return;
     }
     const algorithm = algorithmSelect.value;
-    const colors = await extractDominantColors(image, K, algorithm);
-    renderColors(palette, colors);
-}
 
-kInput.addEventListener('input', run);
-imageUpload.addEventListener('change', run);
+    const image = new Image();
+    image.src = imageUrl;
+    await image.decode();
+    const dominantColors = await extractDominantColors(image, colorCount, algorithm);
+    renderColors(palette, dominantColors);
+};
+
+imageUpload.addEventListener('change', async (event) => {
+    if (event.target.files.length === 0) return;
+    const file = event.target.files[0];
+    imageUrl = URL.createObjectURL(file);
+    imagePreview.src = imageUrl;
+    await run();
+});
+colorCountInput.addEventListener('change', run);
 algorithmSelect.addEventListener('change', run);
 
-setupImageUploadListener(imageUpload, image);
 run();
