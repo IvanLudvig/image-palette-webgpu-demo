@@ -5,6 +5,7 @@ const imagePreview = document.getElementById('image-preview');
 const palette = document.getElementById('color-palette');
 const algorithmSelect = document.getElementById('algorithm-select');
 const colorCountInput = document.getElementById('k-input');
+const executionTime = document.getElementById('execution-time');
 
 let imageUrl = './image.jpg';
 
@@ -52,7 +53,10 @@ const run = async () => {
     const image = new Image();
     image.src = imageUrl;
     await image.decode();
+    const start = performance.now();
     const dominantColors = await extractDominantColors(image, colorCount, algorithm);
+    const end = performance.now();
+    executionTime.textContent = `Execution time: ${(end - start).toFixed(2)} ms`;
     renderColors(palette, dominantColors);
 };
 
